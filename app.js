@@ -2,10 +2,12 @@ const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
 const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
+const mode = document.getElementById('jsMode');
 
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
+let filling = false;
 
 canvas.width = 700;
 canvas.height = 700;
@@ -35,6 +37,16 @@ function handleRangeChange(e) {
     ctx.lineWidth = size;
 }
 
+function handleModeClick() {
+    if (filling === true) {
+        filling = false;
+        mode.innerText = "Fill"
+    } else {
+        filling = true;
+        mode.innerText = "Paint"
+    }
+}
+
 if (canvas) {
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mousedown", (e) => {
@@ -49,4 +61,8 @@ Array.from(colors).forEach(color => color.addEventListener("click", handleColorC
 
 if (range) {
     range.addEventListener('input', handleRangeChange);
+}
+
+if (mode) {
+    mode.addEventListener('click', handleModeClick);
 }
