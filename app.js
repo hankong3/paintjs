@@ -1,6 +1,7 @@
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
 const colors = document.getElementsByClassName("jsColor");
+const range = document.getElementById("jsRange");
 
 let isDrawing = false;
 let lastX = 0;
@@ -29,12 +30,23 @@ function handleColorClick(e) {
     ctx.strokeStyle = color;
 }
 
-canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("mousedown", (e) => {
-    isDrawing = true;
-    [lastX, lastY] = [e.offsetX, e.offsetY];
-});
-canvas.addEventListener("mouseup", () => isDrawing = false);
-canvas.addEventListener("mouseout", () => isDrawing = false);
+function handleRangeChange(e) {
+    const size = e.target.value;
+    ctx.lineWidth = size;
+}
+
+if (canvas) {
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mousedown", (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
+    canvas.addEventListener("mouseup", () => isDrawing = false);
+    canvas.addEventListener("mouseout", () => isDrawing = false);
+}
 
 Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick));
+
+if (range) {
+    range.addEventListener('input', handleRangeChange);
+}
