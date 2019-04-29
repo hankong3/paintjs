@@ -34,6 +34,7 @@ function draw(e) {
 function handleColorClick(e) {
     const color = e.target.style.backgroundColor;
     ctx.strokeStyle = color;
+    ctx.fillStyle = color;
 }
 
 function handleRangeChange(e) {
