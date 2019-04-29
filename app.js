@@ -4,15 +4,19 @@ const colors = document.getElementsByClassName("jsColor");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById('jsMode');
 
+const INITIAL_COLOR = '#2C2C2C';
+const CANVAS_SIZE = 700;
+
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
 let filling = false;
 
-canvas.width = 700;
-canvas.height = 700;
+canvas.width = CANVAS_SIZE;
+canvas.height = CANVAS_SIZE;
 
-ctx.strokeStyle = "#2C2C2C";
+ctx.strokeStyle = INITIAL_COLOR;
+ctx.fillStyle = INITIAL_COLOR;
 ctx.lineWidth = 2.5;
 ctx.lineCap = 'round';
 ctx.lineJoin = 'round';
@@ -47,6 +51,12 @@ function handleModeClick() {
     }
 }
 
+function handleCanvasClick() {
+    if (filling) {
+        ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    }
+}
+
 if (canvas) {
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mousedown", (e) => {
@@ -55,6 +65,7 @@ if (canvas) {
     });
     canvas.addEventListener("mouseup", () => isDrawing = false);
     canvas.addEventListener("mouseout", () => isDrawing = false);
+    canvas.addEventListener('click', handleCanvasClick);
 }
 
 Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick));
