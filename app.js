@@ -69,6 +69,7 @@ if (canvas) {
     canvas.addEventListener("mouseup", () => isDrawing = false);
     canvas.addEventListener("mouseout", () => isDrawing = false);
     canvas.addEventListener('click', handleCanvasClick);
+    canvas.addEventListener('contextmenu', (contextMenu) => contextMenu.preventDefault());
 }
 
 Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick));
